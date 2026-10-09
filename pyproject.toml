@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "diagram-design"
+version = "2.6.70"
+description = "Editorial diagram design for LLMs, developers, and designers. 44 diagram types. Self-contained HTML + SVG."
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [
+    {name = "Cathryn Lavery", email = "cathryn@littlemight.com"}
+]
+keywords = ["diagrams", "svg", "architecture", "flowchart", "visualization", "editorial"]
+dependencies = [
+    "playwright>=1.40.0"
+]
+
+[project.scripts]
+diagram = "diagram_design.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["diagram_design*"]

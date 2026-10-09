@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Diagram Design Studio Banner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 1200px;
+      height: 600px;
+      background: #1e212d;
+      color: #f5f5f5;
+      font-family: 'Geist', -apple-system, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 56px 64px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    /* Grid subtle background */
+    .bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        radial-gradient(circle, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+      background-size: 24px 24px;
+      pointer-events: none;
+    }
+
+    /* Top branding */
+    .header {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo-badge {
+      width: 44px;
+      height: 44px;
+      background: #eb6c36;
+      color: #ffffff;
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 30px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+    }
+
+    .brand-eyebrow {
+      font-family: 'Geist Mono', monospace;
+      font-size: 13px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #eb6c36;
+      font-weight: 600;
+    }
+
+    .pills {
+      display: flex;
+      gap: 10px;
+    }
+
+    .pill {
+      font-family: 'Geist Mono', monospace;
+      font-size: 11px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.04);
+      color: #bfc0c0;
+    }
+
+    .pill.coral {
+      border-color: rgba(235, 108, 54, 0.4);
+      color: #f08a59;
+      background: rgba(235, 108, 54, 0.1);
+    }
+
+    /* Hero main title */
+    .hero-main {
+      position: relative;
+      z-index: 2;
+      margin-top: 10px;
+    }
+
+    h1 {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 68px;
+      line-height: 1.05;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: #eb6c36;
+    }
+
+    .tagline {
+      font-size: 20px;
+      color: #bfc0c0;
+      max-width: 680px;
+      line-height: 1.45;
+      font-weight: 400;
+    }
+
+    /* Cards / Visual showcase */
+    .showcase {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 28px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 140px;
+    }
+
+    .card.highlight {
+      border-color: rgba(235, 108, 54, 0.5);
+      background: rgba(235, 108, 54, 0.05);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .card-title {
+      font-family: 'Geist', sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      color: #ffffff;
+    }
+
+    .card-type {
+      font-family: 'Geist Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #8d99ae;
+    }
+
+    .card-desc {
+      font-size: 12px;
+      color: #bfc0c0;
+      line-height: 1.35;
+    }
+
+    .card-footer {
+      font-family: 'Geist Mono', monospace;
+      font-size: 11px;
+      color: #eb6c36;
+      font-weight: 500;
+    }
+
+    /* Footer meta */
+    .footer-bar {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 18px;
+      font-family: 'Geist Mono', monospace;
+      font-size: 12px;
+      color: #8d99ae;
+    }
+
+    .footer-features {
+      display: flex;
+      gap: 20px;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #eb6c36;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="brand-group">
+      <div class="logo-badge">D</div>
+      <div>
+        <div class="brand-eyebrow">EDITORIAL DIAGRAM DESIGN SYSTEM</div>
+      </div>
+    </div>
+
+    <div class="pills">
+      <div class="pill coral">44 Diagram Types</div>
+      <div class="pill">Self-Contained HTML+SVG</div>
+      <div class="pill">No Shadows</div>
+      <div class="pill">CLI & Studio</div>
+    </div>
+  </header>
+
+  <!-- Hero Main -->
+  <div class="hero-main">
+    <h1>Diagram Design <em>Studio</em></h1>
+    <p class="tagline">
+      The editorial diagram design system for AI agents and engineering teams.
+      High-density, human-crafted aesthetics with zero Mermaid slop.
+    </p>
+  </div>
+
+  <!-- Cards Showcase -->
+  <div class="showcase">
+    <div class="card highlight">
+      <div class="card-top">
+        <span class="card-title">Interactive Studio</span>
+        <span class="card-type">GUI</span>
+      </div>
+      <p class="card-desc">Live editor, real-time SVG rendering, accessibility self-check.</p>
+      <span class="card-footer">diagram serve</span>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <span class="card-title">44 Visual Types</span>
+        <span class="card-type">SYSTEM</span>
+      </div>
+      <p class="card-desc">Architecture, Loop flywheel, Sequence, Medallion, Sankey, Wardley.</p>
+      <span class="card-footer">diagram list</span>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <span class="card-title">Mermaid & Draw.io</span>
+        <span class="card-type">CONVERTER</span>
+      </div>
+      <p class="card-desc">Parse existing graphs and upgrade them to editorial geometry.</p>
+      <span class="card-footer">diagram import</span>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <span class="card-title">Vector & Retina</span>
+        <span class="card-type">EXPORT</span>
+      </div>
+      <p class="card-desc">Standalone SVG and 2x transparent retina PNG via Playwright.</p>
+      <span class="card-footer">diagram export</span>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer-bar">
+    <div class="footer-features">
+      <div class="feature-item"><span class="dot"></span> Google Antigravity Native</div>
+      <div class="feature-item"><span class="dot"></span> Claude Code & Codex Ready</div>
+      <div class="feature-item"><span class="dot"></span> Python 3.10+ CLI</div>
+      <div class="feature-item"><span class="dot"></span> MIT Licensed</div>
+    </div>
+    <div>v2.6.70</div>
+  </div>
+</body>
+</html>

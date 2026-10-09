@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagram Design Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Top Navigation -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo-mark">D</div>
+      <div class="title-group">
+        <h1>Diagram Design <span class="tag">Studio</span></h1>
+        <span class="sub">Editorial diagram design system · 44 types</span>
+      </div>
+    </div>
+
+    <nav class="nav-links">
+      <button class="nav-btn active" data-view="gallery">Gallery (44 Types)</button>
+      <button class="nav-btn" data-view="studio">Live Editor</button>
+      <button class="nav-btn" data-view="converter">Mermaid Converter</button>
+      <button class="nav-btn" data-view="icons">Icons</button>
+      <button class="nav-btn" data-view="doctor">Doctor</button>
+    </nav>
+
+    <div class="topbar-actions">
+      <div class="theme-picker" id="theme-selector">
+        <label for="variant-select">Variant:</label>
+        <select id="variant-select">
+          <option value="light">Minimal Light</option>
+          <option value="dark">Minimal Dark</option>
+          <option value="full">Full Editorial</option>
+          <option value="animated">Motion (Animated)</option>
+          <option value="terminal">Terminal Dark</option>
+        </select>
+      </div>
+      <button class="action-btn" id="btn-export-quick-svg" title="Export current as standalone SVG">SVG</button>
+      <button class="action-btn accent" id="btn-export-quick-png" title="Export current as hi-res PNG">PNG</button>
+    </div>
+  </header>
+
+  <!-- View 1: Gallery -->
+  <section class="view active" id="view-gallery">
+    <aside class="sidebar">
+      <div class="search-box">
+        <input type="text" id="type-search" placeholder="Search 44 types...">
+      </div>
+      <div class="category-filters" id="category-filters">
+        <!-- Rendered dynamically -->
+      </div>
+      <div class="type-list" id="type-list">
+        <!-- Rendered dynamically -->
+      </div>
+    </aside>
+
+    <main class="preview-stage">
+      <div class="stage-header">
+        <div class="stage-info">
+          <span class="eyebrow" id="stage-eyebrow">Architecture · Diagram Design</span>
+          <h2 id="stage-title">Architecture</h2>
+          <p class="stage-desc" id="stage-desc">Components and connections in one system snapshot</p>
+        </div>
+        <div class="stage-controls">
+          <button class="btn secondary" id="btn-open-in-editor">Open in Live Editor</button>
+          <button class="btn secondary" id="btn-open-new-tab">Open Raw ↗</button>
+          <button class="btn secondary" id="btn-gallery-export-svg">Export SVG</button>
+          <button class="btn primary" id="btn-gallery-export-png">Export PNG (2x)</button>
+        </div>
+      </div>
+      <div class="preview-frame-container">
+        <iframe id="gallery-iframe" src="/assets/example-architecture.html"></iframe>
+      </div>
+    </main>
+  </section>
+
+  <!-- View 2: Live Editor & Studio -->
+  <section class="view" id="view-studio">
+    <div class="studio-layout">
+      <!-- Left: Code & Controls -->
+      <div class="editor-pane">
+        <div class="editor-header">
+          <div class="editor-selector">
+            <label for="template-select">Template:</label>
+            <select id="template-select">
+              <!-- Dynamically populated with all 44 types -->
+            </select>
+          </div>
+          <div class="editor-tools">
+            <button class="tool-btn" id="btn-check-code" title="Verify compliance with diagram rules">
+              <span class="status-indicator" id="status-indicator"></span> Self-Check
+            </button>
+            <button class="tool-btn" id="btn-format-code">Format</button>
+          </div>
+        </div>
+
+        <div class="editor-container">
+          <textarea id="code-editor" spellcheck="false" placeholder="Enter diagram HTML..."></textarea>
+        </div>
+
+        <div class="check-feedback" id="check-feedback">
+          <div class="check-status ok" id="check-summary">✓ Self-Check Passed: compliant with Diagram Design rules.</div>
+          <ul class="error-list" id="error-list"></ul>
+        </div>
+      </div>
+
+      <!-- Right: Real-time Live SVG Preview -->
+      <div class="studio-preview-pane">
+        <div class="studio-preview-header">
+          <div class="meta-tag">Live Render</div>
+          <div class="preview-export-btns">
+            <button class="btn secondary sm" id="btn-studio-download-html">Download HTML</button>
+            <button class="btn secondary sm" id="btn-studio-download-svg">Download SVG</button>
+            <button class="btn primary sm" id="btn-studio-download-png">Export PNG (2x)</button>
+          </div>
+        </div>
+        <div class="studio-iframe-wrap">
+          <iframe id="studio-iframe"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- View 3: Mermaid Converter -->
+  <section class="view" id="view-converter">
+    <div class="converter-layout">
+      <div class="converter-input-card">
+        <div class="card-head">
+          <h3>Mermaid Source Input</h3>
+          <span class="subtext">Paste raw flowchart, graph, or sequence Mermaid code</span>
+        </div>
+        <textarea id="mermaid-input" spellcheck="false" placeholder="graph TD
+    Client[Web Client] --> Gateway(API Gateway)
+    Gateway --> Service{Auth Valid?}
+    Service -->|yes| Orders[Orders Service]
+    Service -->|no| Gateway
+    Orders --> Database[(PostgreSQL)]"></textarea>
+        <div class="card-foot">
+          <button class="btn primary" id="btn-analyze-mermaid">Extract IR & Analyze</button>
+          <button class="btn secondary" id="btn-convert-to-editorial">Convert to Editorial Diagram</button>
+        </div>
+      </div>
+
+      <div class="converter-output-card">
+        <div class="card-head">
+          <h3>Structural Analysis (IR)</h3>
+          <span class="subtext">Normalized intermediate representation & editorial suggestions</span>
+        </div>
+        <div class="ir-digest-display" id="ir-digest-display">
+          <p class="placeholder-text">Click "Extract IR & Analyze" to examine graph structure, detected hubs, entry points, and recommended visual types.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- View 4: Icons Library -->
+  <section class="view" id="view-icons">
+    <iframe id="icons-iframe" src="/assets/icons.html"></iframe>
+  </section>
+
+  <!-- View 5: Doctor Diagnostics -->
+  <section class="view" id="view-doctor">
+    <div class="doctor-container">
+      <div class="doctor-header">
+        <h2>System Diagnostic & Readiness</h2>
+        <p>Checks Python environment, Playwright Chromium, fonts, and Antigravity skills.</p>
+        <button class="btn secondary" id="btn-refresh-doctor">Re-run Diagnostic</button>
+      </div>
+      <div class="doctor-table-wrap">
+        <table class="doctor-table">
+          <thead>
+            <tr>
+              <th>Status</th>
+              <th>Component</th>
+              <th>Diagnostic Detail</th>
+              <th>Action / Recommendation</th>
+            </tr>
+          </thead>
+          <tbody id="doctor-tbody">
+            <tr><td colspan="4">Loading diagnostics...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Notification Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
