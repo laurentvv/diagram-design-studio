@@ -35,7 +35,7 @@ jobs:
 
       - name: Install Playwright Browsers
         run: |
-          playwright install --with-deps chromium
+          playwright install chromium
 
       - name: Run Unit Tests
         run: |
