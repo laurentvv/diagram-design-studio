@@ -5,3 +5,6 @@ __pycache__/
 dist/
 *.egg-info/
 .pytest_cache/
+# Agent local state (ledger, installed skills) - kept on disk, never committed
+.agent/
+.agents/
