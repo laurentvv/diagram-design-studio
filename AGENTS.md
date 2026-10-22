@@ -135,3 +135,7 @@ diagram import flow.mmd
 # Launch interactive Diagram Design Studio (Live Editor + Gallery)
 diagram serve --open
 ```
+
+### CI / GitHub Actions
+
+No GitHub Actions: this repository publishes no GitHub releases, so it carries no workflows — never create `.github/workflows/` files, CI badges or release automation. Validation runs locally.
